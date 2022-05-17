@@ -35,11 +35,14 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="include/BST.H" />
+		<Unit filename="include/QUEUE.H" />
+		<Unit filename="include/STACK.H" />
 		<Unit filename="include/VECTOR.H" />
 		<Unit filename="src/BST_TEST.cpp">
 			<Option compile="0" />
 			<Option link="0" />
 		</Unit>
+		<Unit filename="src/QUEUE_TEST.cpp" />
 		<Unit filename="src/VECTOR_TEST.cpp">
 			<Option compile="0" />
 			<Option link="0" />
