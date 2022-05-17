@@ -12,11 +12,11 @@ const std::string TEST_FILE = ".txt";
 int main()
 {
 	ifstream file(TEST_FILE.c_str());
-	
+
 	if (file.bad())
 		return -1;
-	
-	Vector<T> vec;
-	
+
+	Vector<int> vec;
+
 	return 0;
 }
