@@ -109,7 +109,7 @@ public:
     size_t Size() const;
 private:
     /**
-     *  @brief A useful method that resizes the Vector based on the paramater
+     *  @brief A method that resizes the Vector based on the paramater
      *
      *  The method is private because the user doesn't need to manually resize the Vector
      *
