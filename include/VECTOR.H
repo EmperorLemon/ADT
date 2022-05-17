@@ -125,7 +125,6 @@ private:
     void Clear();
 private:
     /// A pointer of generic type T which points to a null pointer by default
-    /** @warning I'm scared of pointers*/
     T* m_data = nullptr;
 
     /// The size of the vector
@@ -138,28 +137,22 @@ private:
 template <class T>
 Vector<T>::Vector()
 {
-    // Generate 2 blocks of memory upon object creation
     GenerateBlock(2);
 }
 
 template <class T>
 Vector<T>::~Vector()
 {
-    // Remove all elements of a Vector
     Clear();
 }
 
 template <class T>
 Vector<T>::Vector(const Vector<T>& newVec)
 {
-    // set the current vector's size to the new vector's size
     m_size = newVec.m_size;
 
-    // set m_data to a new array of T with the new vector's size as the amount of elements within that array
-    // I was never too great at explaining things in verbose detail, especially if that thing is very abstract
     m_data = new T[newVec.m_size];
-
-    // set each element of m_data to each element of the new vectors data
+	
     for (unsigned i = 0; i < newVec.m_size; i++)
         m_data[i] = newVec.m_data[i];
 }
@@ -167,20 +160,17 @@ Vector<T>::Vector(const Vector<T>& newVec)
 template <class T>
 bool Vector<T>::IsEmpty() const
 {
-    // return true if size equals 0
     return (m_size == 0);
-    // return false if size does not equal 0
 }
 
 template <class T>
 void Vector<T>::PushBack(const T& element)
 {
-    // if the current size is greater-than or equal to the capacity
     if (m_size >= m_capacity)
-        GenerateBlock(m_capacity + m_capacity / 2); // then generate a block of memory that is 1.5 times its capacity
+        GenerateBlock(m_capacity + m_capacity / 2);
 
-    m_data[m_size] = element; // data at index m_size is set to object reference
-    m_size++; // increment size by 1
+    m_data[m_size] = element;
+    m_size++;
 }
 
 template <class T>
@@ -192,10 +182,8 @@ void Vector<T>::Clear()
     // Set m_data to a null pointer for safety measure
     m_data = nullptr;
 
-    // Set the size to 0
     m_size = 0;
 
-    // Set the capacity to 0
     m_capacity = 0;
 }
 
@@ -235,16 +223,12 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& nv)
     // Deallocate pointer array
     delete [] m_data;
 
-    // Set the current vector's capacity to the new vector's capacity
     m_capacity = nv.m_capacity;
 
-    // Set the current vector's size to the new vector's size
     m_size = nv.m_size;
 
-    // Allocate memory for new vector's data array containing m_capacity number of elements
     m_data = new T[m_capacity];
 
-    // Assign current data to new data
     for (unsigned i = 0; i < nv.m_size; i++)
         m_data[i] = nv.m_data[i];
 
@@ -254,7 +238,6 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& nv)
 template <class T>
 size_t Vector<T>::Size() const
 {
-    // Return the current size of the vector
     return m_size;
 }
 
@@ -265,19 +248,17 @@ void Vector<T>::GenerateBlock(size_t cap)
     // set that array to a new array of T with cap amount of elements within the array
     T* block = new T[cap];
 
-    // If the cap is less than the current size
     if (cap < m_size)
-        m_size = cap; // Then the current size equals the cap
+        m_size = cap;
 
-    // Set each element of block to each element of the vector's data
     for (size_t i = 0; i < m_size; i++)
         block[i] = m_data[i];
 
     // Deallocate memory for all elements of the current vector
     delete[] m_data;
-    // Set the data to the block of data
+	
     m_data = block;
-    // Set the capacity to the cap
+	
     m_capacity = cap;
 }
 
