@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "BST.H"
+#include "VECTOR.H"
 
 using std::cout;
 using std::ifstream;
@@ -16,7 +16,7 @@ int main()
 	if (file.bad())
 		return -1;
 	
-	BST<T> bst;
+	Vector<T> vec;
 	
 	return 0;
 }
