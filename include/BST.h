@@ -1,11 +1,6 @@
 #ifndef BST_H
 #define BST_H
 
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
 template<class T>
 struct Node
 {
@@ -24,6 +19,8 @@ struct Node
 template <class T>
 class BST
 {
+typedef void (*func)(const T&);
+
 public:
 
     /**
@@ -75,21 +72,21 @@ public:
      *
      * @return void
      */
-    void InOrder() const;
+    void InOrder(func) const;
 
     /**
      * @brief traverse the nodes of the BST in pre-order
      *
      * @return void
      */
-    void PreOrder() const;
+    void PreOrder(func) const;
 
     /**
      * @brief display the elements of the BST in post-order
      *
      * @return void
      */
-    void PostOrder() const;
+    void PostOrder(func) const;
 private:
     /// The root node of the BST
     Node<T>* m_root;
@@ -136,7 +133,7 @@ private:
      *
      * @return void
      */
-    void inOrder(const Node<T>* currentNode) const;
+    void inOrder(Node<T>* currentNode, func) const;
 
     /**
      * @brief traverse through the nodes of the BST in pre-order
@@ -145,7 +142,7 @@ private:
      *
      * @return void
      */
-    void preOrder(const Node<T>* currentNode) const;
+    void preOrder(Node<T>* currentNode, func) const;
 
     /**
      * @brief traverse through the nodes of the BST in post-order
@@ -154,7 +151,7 @@ private:
      *
      * @return void
      */
-    void postOrder(const Node<T>* currentNode) const;
+    void postOrder(Node<T>* currentNode, func) const;
 
     /**
      * @brief Deallocate memory for each node of the tree, starting from the root node
@@ -274,53 +271,53 @@ bool BST<T>::search(const Node<T>* currentNode, const T& item) const
 }
 
 template<class T>
-void BST<T>::InOrder() const
+void BST<T>::InOrder(func funcPtr) const
 {
-    inOrder(m_root);
+    inOrder(m_root, funcPtr);
 }
 
 template<class T>
-void BST<T>::inOrder(const Node<T>* currentNode) const
+void BST<T>::inOrder(Node<T>* currentNode, func funcPtr) const
 {
     if (currentNode != nullptr)
     {
-        inOrder(currentNode->lLink);
-        cout << currentNode->data << '\n';
-        inOrder(currentNode->rLink);
+        inOrder(currentNode->lLink, funcPtr);
+        funcPtr(currentNode->data);
+        inOrder(currentNode->rLink, funcPtr);
     }
 }
 
 template<class T>
-void BST<T>::PreOrder() const
+void BST<T>::PreOrder(func funcPtr) const
 {
-    preOrder(m_root);
+    preOrder(m_root, funcPtr);
 }
 
 template<class T>
-void BST<T>::preOrder(const Node<T>* currentNode) const
+void BST<T>::preOrder(Node<T>* currentNode, func funcPtr) const
 {
     if (currentNode != nullptr)
     {
-        cout << currentNode->data << '\n';
-        preOrder(currentNode->lLink);
-        preOrder(currentNode->rLink);
+        funcPtr(currentNode->data);
+        preOrder(currentNode->lLink, funcPtr);
+        preOrder(currentNode->rLink, funcPtr);
     }
 }
 
 template<class T>
-void BST<T>::PostOrder() const
+void BST<T>::PostOrder(func funcPtr) const
 {
-    postOrder(m_root);
+    postOrder(m_root, funcPtr);
 }
 
 template<class T>
-void BST<T>::postOrder(const Node<T>* currentNode) const
+void BST<T>::postOrder(Node<T>* currentNode, func funcPtr) const
 {
     if (currentNode != nullptr)
     {
-        postOrder(currentNode->lLink);
-        postOrder(currentNode->rLink);
-        cout << currentNode->data << '\n';
+        postOrder(currentNode->lLink, funcPtr);
+        postOrder(currentNode->rLink, funcPtr);
+        funcPtr(currentNode->data);
     }
 }
 
